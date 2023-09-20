@@ -78,21 +78,52 @@ fun TaskManagementAppPortrait(modifier: Modifier = Modifier) {
 }
 
 val testTaskList: List<TaskItem> = listOf(
-    TaskItem(1, false, "Review 1"),
-    TaskItem(2, false, "Review 2"),
-    TaskItem(3, false, "Review 3"),
-    TaskItem(4, false, "Review 4"),
-    TaskItem(5, false, "Review 5"),
-    TaskItem(6, false, "Review 6"),
-    TaskItem(7, false, "Review 7"),
-    TaskItem(8, false, "Review 8"),
-    TaskItem(9, false, "Review 9")
+    TaskItem(
+        id = 1,
+        isCompleted = false,
+        title = "Client Review & Feedback",
+        description = "Cypto Wallet Redesign",
+        date = "Today",
+        time = "10:00 PM - 11:45 PM"
+    ),
+    TaskItem(
+        id = 2,
+        isCompleted = false,
+        title = "Create Wireframe",
+        description = "Cypto Wallet Redesign",
+        date = "Today",
+        time = "09:15 PM - 10:00 PM"
+    ),
+    TaskItem(
+        id = 3,
+        isCompleted = false,
+        title = "Review with Client",
+        description = "Product team",
+        date = "Today",
+        time = "01:00 PM - 03:00 PM"
+    ),
+    TaskItem(
+        id = 4,
+        isCompleted = false,
+        title = "Ideation",
+        description = "Product team",
+        date = "Today",
+        time = "9:10 AM - 11:00 AM"
+    )
 )
 
 val testTabList: List<TabItem> = listOf(
-    TabItem(isSelected = true, label = "All", numberOfTask = testTaskList.size),
-    TabItem(label = "Open", numberOfTask = testTaskList.count { !it.isCompleted }),
-    TabItem(label = "Closed", numberOfTask = testTaskList.count { it.isCompleted })
+    TabItem(
+        isSelected = true,
+        label = "All",
+        numberOfTask = testTaskList.size
+    ),
+    TabItem(
+        label = "Open",
+        numberOfTask = testTaskList.count { !it.isCompleted }),
+    TabItem(
+        label = "Closed",
+        numberOfTask = testTaskList.count { it.isCompleted })
 )
 
 
