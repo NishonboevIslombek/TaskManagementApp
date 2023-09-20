@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -40,16 +41,19 @@ import com.example.taskmanagementappchallenge.data.TaskItem
 fun TaskColumn(
     modifier: Modifier = Modifier,
     list: List<TaskItem>,
-    onTaskClicked: (index: Int) -> Unit
+    onTaskClicked: (itemId: Int) -> Unit
 ) {
 
     LazyColumn(
+        state = rememberLazyListState(),
         contentPadding = PaddingValues(vertical = 25.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = modifier
     ) {
-        itemsIndexed(list) { index: Int, item: TaskItem ->
-            TaskItem(taskItem = item, onClick = { onTaskClicked(index) })
+        items(
+            items = list, key = { item -> item.id })
+        { item: TaskItem ->
+            TaskItem(taskItem = item, onClick = { onTaskClicked(item.id) })
         }
     }
 }
@@ -82,7 +86,7 @@ fun TaskItem(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Product team", style = MaterialTheme.typography.bodyMedium
+                        text = taskItem.description, style = MaterialTheme.typography.bodyMedium
                     )
                 }
                 Icon(
@@ -114,10 +118,10 @@ fun TaskItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Today", style = MaterialTheme.typography.labelSmall
+                    text = taskItem.date, style = MaterialTheme.typography.labelSmall
                 )
                 Text(
-                    text = "10:00 AM - 15:00 PM",
+                    text = taskItem.time,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(start = 10.dp)
                 )

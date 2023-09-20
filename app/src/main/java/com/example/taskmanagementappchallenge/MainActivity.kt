@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.taskmanagementappchallenge.data.TabItem
 import com.example.taskmanagementappchallenge.data.TaskItem
-import com.example.taskmanagementappchallenge.ui.composables.TabItem
 import com.example.taskmanagementappchallenge.ui.composables.TabRow
 import com.example.taskmanagementappchallenge.ui.composables.TaskColumn
 import com.example.taskmanagementappchallenge.ui.composables.TopBar
@@ -40,6 +39,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
     Column(modifier = modifier) {
         TopBar()
+
         TabRow(
             modifier = modifier.padding(vertical = 10.dp),
             tabList = tabList,
@@ -49,10 +49,19 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 }
                 tabList[index] = tabList[index].copy(isSelected = true)
             })
+
         TaskColumn(
-            list = taskList,
-            onTaskClicked = {
-                taskList[it] = taskList[it].copy(isCompleted = !taskList[it].isCompleted)
+            list = if (tabList[1].isSelected) taskList.filter { !it.isCompleted }
+            else if (tabList[2].isSelected) taskList.filter { it.isCompleted }
+            else taskList,
+            onTaskClicked = { id ->
+                taskList.find { it.id == id }?.let { task ->
+                    task.isCompleted = !task.isCompleted
+                }
+                tabList[1] =
+                    tabList[1].copy(numberOfTask = taskList.count { task -> !task.isCompleted })
+                tabList[2] =
+                    tabList[2].copy(numberOfTask = taskList.count { task -> task.isCompleted })
             })
     }
 }
@@ -69,20 +78,53 @@ fun TaskManagementAppPortrait(modifier: Modifier = Modifier) {
 }
 
 val testTaskList: List<TaskItem> = listOf(
-    TaskItem(false, "Review 1"),
-    TaskItem(false, "Review 2"),
-    TaskItem(false, "Review 3"),
-    TaskItem(false, "Review 4"),
-    TaskItem(false, "Review 5"),
-    TaskItem(false, "Review 6"),
-    TaskItem(false, "Review 7"),
-    TaskItem(false, "Review 8"),
-    TaskItem(false, "Review 9")
+    TaskItem(
+        id = 1,
+        isCompleted = false,
+        title = "Client Review & Feedback",
+        description = "Cypto Wallet Redesign",
+        date = "Today",
+        time = "10:00 PM - 11:45 PM"
+    ),
+    TaskItem(
+        id = 2,
+        isCompleted = false,
+        title = "Create Wireframe",
+        description = "Cypto Wallet Redesign",
+        date = "Today",
+        time = "09:15 PM - 10:00 PM"
+    ),
+    TaskItem(
+        id = 3,
+        isCompleted = false,
+        title = "Review with Client",
+        description = "Product team",
+        date = "Today",
+        time = "01:00 PM - 03:00 PM"
+    ),
+    TaskItem(
+        id = 4,
+        isCompleted = false,
+        title = "Ideation",
+        description = "Product team",
+        date = "Today",
+        time = "9:10 AM - 11:00 AM"
+    )
 )
 
 val testTabList: List<TabItem> = listOf(
-    TabItem(isSelected = true, label = "All"),
-    TabItem(label = "Open"),
-    TabItem(label = "Closed")
+    TabItem(
+        isSelected = true,
+        label = "All",
+        numberOfTask = testTaskList.size
+    ),
+    TabItem(
+        label = "Open",
+        numberOfTask = testTaskList.count { !it.isCompleted }),
+    TabItem(
+        label = "Closed",
+        numberOfTask = testTaskList.count { it.isCompleted })
 )
+
+
 
