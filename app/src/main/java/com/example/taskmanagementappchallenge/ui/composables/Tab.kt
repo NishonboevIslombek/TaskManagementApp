@@ -32,14 +32,14 @@ fun TabRow(
             .horizontalScroll(rememberScrollState())
             .padding(start = 25.dp, end = 20.dp)
     ) {
-        tabList.forEachIndexed { index, s ->
+        tabList.forEachIndexed { index, item ->
             if (index == 1) {
                 Text(
                     text = "|",
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.ExtraBold)
                 )
             }
-            TabItem(tabItem = s, onClick = { onTabSelected(index) })
+            TabItem(tabItem = item, onClick = { onTabSelected(index) })
         }
     }
 }
@@ -59,7 +59,7 @@ fun TabItem(modifier: Modifier = Modifier, tabItem: TabItem, onClick: () -> Unit
             )
         )
         Text(
-            text = "35",
+            text = tabItem.numberOfTask.toString(),
             style = MaterialTheme.typography.bodySmall.copy(
                 fontWeight = FontWeight.Light,
                 fontSize = 12.sp
