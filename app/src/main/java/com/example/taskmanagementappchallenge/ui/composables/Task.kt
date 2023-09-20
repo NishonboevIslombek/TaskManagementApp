@@ -86,7 +86,7 @@ fun TaskItem(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Product team", style = MaterialTheme.typography.bodyMedium
+                        text = taskItem.description, style = MaterialTheme.typography.bodyMedium
                     )
                 }
                 Icon(
@@ -118,10 +118,10 @@ fun TaskItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Today", style = MaterialTheme.typography.labelSmall
+                    text = taskItem.date, style = MaterialTheme.typography.labelSmall
                 )
                 Text(
-                    text = "10:00 AM - 15:00 PM",
+                    text = taskItem.time,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(start = 10.dp)
                 )
