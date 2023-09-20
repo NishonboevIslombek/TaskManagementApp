@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.taskmanagementappchallenge.ui.theme.Blue
 import com.example.taskmanagementappchallenge.ui.theme.backgroundBlue
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun TopBar(modifier: Modifier = Modifier) {
@@ -24,7 +26,10 @@ fun TopBar(modifier: Modifier = Modifier) {
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(text = "Today's Task", style = MaterialTheme.typography.labelLarge)
-            Text(text = "Wednesday, 11 May", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEEE, dd MMM ")),
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
 
         FilledTonalButton(
